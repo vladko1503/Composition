@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load mis_extras %}
+{% block breadcrumbs %}
+  <div class="container-fluid" style="background-color: #e3f2fd;">
+    <div class="container">
+      <ul class="breadcrumb103">
+        <li><a href="/sys/">Home-></a></li>
+        <li><a href="/sys/mis/{{ mis.id }}/">Mis#{{ mis.id }}-></a></li>
+        <li class="active">{{ date_s }}</li>
+      </ul> 
+    </div>
+  </div>
+{% endblock breadcrumbs %}
+{% block content %}
+<div class="container">
+<h3>MIS #{{ mis.id }}: [{{ mis.mis_name }}]: Звернення за {{ date_s }}</h3>
+<table style="width:1100px" border="1px solid black" border-spacing="5px">
+  <tr>
+    <td style="width:170px">#</td>
+{% for title_item in title %}
+    {% if title_item.link == "None" %}
+    <td style="width:30px" align="center">{{ title_item.name }}</td>
+    {% else %}
+    <td style="width:30px" align="center"><a href="{{ title_item.link }}">{{ title_item.name }}</a></td>
+    {% endif %}
+{% endfor %}
+  </tr>
+  <tr>
+    <th>HeartBeat</th>
+{% for heartbeat_item in heartbeat %}
+    <td align="right">{{ heartbeat_item|intspace }}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th>Звернень</th>
+{% for call_item in calls %}
+    <td align="right">{{ call_item|intspace }}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th> -Без відповіді</th>
+{% for noanswer_item in noanswer %}
+    <td align="right">{{ noanswer_item|intspace }}</td>
+{% endfor %}
+  </tr>  
+  <tr>
+    <th> -Помилкових</th>
+{% for fake_item in fake %}
+    <td align="right">{{ fake_item|intspace }}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th> -Консультації</th>
+{% for advise_item in advise %}
+    <td align="right">{{ advise_item|intspace }}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th> -Відмова у виклику</th>
+{% for refuse_item in refuse %}
+    <td align="right">{{ refuse_item|intspace }}</td>
+{% endfor %}
+  </tr>  
+  <tr>
+    <th> -Виїзд бригади</th>
+{% for crew_call_item in crew_call %}
+    <td align="right">{{ crew_call_item|intspace}}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th> --Госпіталізовано</th>
+{% for ed_call_item in ed_call %}
+    <td align="right">{{ ed_call_item|intspace }}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th style="color:#0505FF" bgcolor="C4E5D4" colspan="2"><i>Диспетчерів 103:</i></th>
+{% for dpv_line in dpv %}
+{% if forloop.counter == 1 %}
+{% for dpv_item in dpv_line %}
+    <td style="font-style:italic; text-align: right;" bgcolor="#C0C0C0">{{ dpv_item }}</td>
+{% endfor %}
+{% else %}
+{% if forloop.counter == 2 %}
+    <th rowspan="{{ dpv_count }}">Оператор</th>
+{% endif %}
+{% for dpv_item, dpv_id in dpv_line %}
+{% if forloop.counter == 1 %}
+    <td style="font-style:italic; font-size:12px;text-align: right;"><a href="/sys/staff/{{ dpv_id }}/">{{ dpv_item }}</a></td>
+{% else %}<td style="font-style:italic; font-size:12px;text-align: right;">{{ dpv_item }}</td>{% endif %}
+{% endfor %}    
+{% endif %}
+    </tr>
+{% endfor %}
+  </tr>
+
+  <tr>
+    <th style="color:#0505FF" bgcolor="C4E5D4" colspan="2"><i>Диспетчери напрямку:</i></th>
+{% for dn_line in dn %}
+{% if forloop.counter == 1 %}
+{% for dn_item in dn_line %}
+    <td style="font-style:italic; text-align: right;" bgcolor="#C0C0C0">{{ dn_item }}</td>
+{% endfor %}
+{% else %}
+{% if forloop.counter == 2 %}
+    <th rowspan="{{ dn_count }}">Оператор</th>
+{% endif %}
+{% for dn_item, dn_id in dn_line %}
+{% if forloop.counter == 1 %}
+    <td style="font-style:italic; font-size:12px;text-align: right;"><a href="/sys/staff/{{ dn_id }}/">{{ dn_item }}</a></td>
+{% else %}<td style="font-style:italic; font-size:12px;text-align: right;">{{ dn_item }}</td>{% endif %}
+{% endfor %}    
+{% endif %}
+    </tr>
+{% endfor %}
+  </tr>
+<tr><td></td></tr>
+
+  <tr>
+    <th style="color:#0505FF" bgcolor="C4E5D4" colspan="2"><i>Бригади:</i></th>
+{% for count,val in crew_count.items %}
+    <td style="color:#0505FF;font-style:italic; text-align: right;" bgcolor="#C0C0C0">{{ val }}</td>
+{% endfor %}
+  </tr>
+{% for crew in crew_duty %}
+  <tr style="font-style:italic;font-size:12px">
+{% for crew_item in crew %}
+{% if forloop.counter == 1 %}
+    <td align="right" bgcolor="{{ crew_item.color }}"><a href="/sys/crew/{{ crew_item.name }}">{{ crew_item.name }}</a></td>
+{% else %}
+    <td align="right" bgcolor="{{ crew_item.color }}">{{ crew_item.name }}</td>
+{% endif %}
+{% endfor %}
+  </tr>
+{% endfor %}
+</table> 
+({{ hostname }})
+</div>
+{% endblock content %}

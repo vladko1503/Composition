@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load mis_extras %}
+
+{% block breadcrumbs %}
+  <div class="container-fluid" style="background-color: #e3f2fd;">
+    <div class="container">
+      <ul class="breadcrumb103">
+        <li><a href="/sys/">Home-></a></li>
+        <li class="active">Mis#{{ mis.id }}</li>
+      </ul> 
+    </div>
+  </div>
+{% endblock breadcrumbs %}    
+{% block content %}
+<div class="container">
+<h3>MIS #{{ mis.id }}: [{{ mis.mis_name }}]</h3>
+<table style="width:900px" border="1px solid black" border-spacing="5px">
+  <tr style="text-align: center;">
+    <th></th>
+{% for title_item in title %}
+    {% if title_item.link == "None" %}
+    <th>{{ title_item.name }}</th>
+    {% else %}
+    <th><a href="{{ title_item.link }}"{% if title_item.dcolor %} style="color: {{ title_item.dcolor }};"{% endif %}>{{ title_item.name }}</a></th>
+    {% endif %}
+{% endfor %}
+  </tr>
+  <tr>
+    <th>HeartBeat</th>
+{% for heartbeat_item in heartbeat %}
+    <td style="text-align: right;">{{ heartbeat_item|intspace }}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th>Звернень</th>
+{% for call_item in calls %}
+    <td align="right">{{ call_item|intspace }}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th> -Без відповіді</th>
+{% for noanswer_item in noanswer %}
+    <td align="right">{{ noanswer_item|intspace }}</td>
+{% endfor %}
+  </tr>   
+  <tr>
+    <th> -Помилкових</th>
+{% for fake_item in fake %}
+    <td align="right">{{ fake_item|intspace }}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th> -Консультації</th>
+{% for advise_item in advise %}
+    <td align="right">{{ advise_item|intspace }}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th> -Відмова у виклику</th>
+{% for refuse_item in refuse %}
+    <td align="right">{{ refuse_item|intspace }}</td>
+{% endfor %}
+  </tr>   
+  <tr>
+    <th> -Виїзд бригади</th>
+{% for crew_call_item in crew_call %}
+    <td align="right">{{ crew_call_item|intspace}}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th> --Госпіталізовано</th>
+{% for ed_call_item in ed_call %}
+    <td align="right">{{ ed_call_item|intspace }}</td>
+{% endfor %}
+  </tr>
+</table>
+({{ hostname }})
+</div>
+{% endblock content %}

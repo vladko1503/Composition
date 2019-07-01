@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load mis_extras %}
+{% block breadcrumbs %}
+  <div class="container-fluid" style="background-color: #e3f2fd;">
+    <div class="container">
+      <ul class="breadcrumb103">
+        <li><a href="/sys/">Home-></a></li>
+        <li><a href="/sys/mis/{{ mis.id }}/">Mis#{{ mis.id }}-></a></li>
+        <li class="active">Статистика</li>
+      </ul> 
+    </div>
+  </div>
+{% endblock breadcrumbs %}
+{% block content %}
+<div class="container">
+<div class="row">
+<h3>MIS #{{ mis.id }}: [{{ mis.mis_name }}]: <i><u>Статистика</u></i></h3>
+</div>
+<div class='row'>
+  <div class="col">
+      <table style="width:200px;font-size:10px" border="1px solid black" border-spacing="1px">
+        <th>Локації</th>
+        <th>#</th>
+        <tr>
+          <td>Активних</td>
+          <td>{{ facility_stat.active }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>- Центр</td>
+          <td>{{ facility_stat.center }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>- Станцій</td>
+          <td>{{ facility_stat.station }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>- Підстанцій</td>
+          <td>{{ facility_stat.substation }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>- ПБ</td>
+          <td>{{ facility_stat.pb }}</td>
+        </tr>
+        <tr>
+          <td>Не активних</td>
+          <td>{{ facility_stat.not_active }}</td>
+        </tr>
+        <tr>
+          <td><b><u>Всього</u></b></td>
+          <td><b><u>{{ facility_stat.total }}</u></b></td>
+        </tr>
+        <tr border="0px">
+          <td colspan="2"><br/></td>
+        </tr>
+        <tr>
+          <td colspan="2">Оновлено: <u>{{ facility_stat.last_update }}</u></td>
+        </tr>
+      </table>
+    </div>
+    <div class='col'>
+      <table style="width:200px;font-size:10px" border="1px solid black" border-spacing="1px">
+        <th>Персонал</th>
+        <th>#</th>
+        <tr>
+          <td>Активних</td>
+          <td>{{ staff_stat.active }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>- <b>Медичних</b></td>
+          <td>{{ staff_stat.midical }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>-- Лікар</td>
+          <td>{{ staff_stat.likar }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>-- Фельдшер</td>
+          <td>{{ staff_stat.feldsher }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>-- Парамедик</td>
+          <td>{{ staff_stat.param }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>-- Сестра</td>
+          <td>{{ staff_stat.sister }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>-- Акушерка</td>
+          <td>{{ staff_stat.akush }}</td>
+        </tr>        
+        <tr style="font-style:italic">
+          <td>-- Інтерн</td>
+          <td>{{ staff_stat.inter }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>-- Стажер</td>
+          <td>{{ staff_stat.stager }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>-- Фармацевт</td>
+          <td>{{ staff_stat.farma }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>-- Провізор</td>
+          <td>{{ staff_stat.proviz }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>-- Диспетчер ОДС</td>
+          <td>{{ staff_stat.dispatcher }}</td>
+        </tr>        
+        <tr style="font-style:italic">
+          <td>- <b>Не медичних</b></td>
+          <td>{{ staff_stat.nonmedical }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>-- Водій</td>
+          <td>{{ staff_stat.vodiy }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>-- ЕМТ</td>
+          <td>{{ staff_stat.emt }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>-- Санітар</td>
+          <td>{{ staff_stat.sanitar }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>-- Оператор ОДС</td>
+          <td>{{ staff_stat.operator }}</td>
+        </tr>        
+
+        <tr style="font-style:italic">
+          <td>- <b>Адміністративний</b></td>
+          <td>{{ staff_stat.admin }}</td>
+        </tr>        
+        <tr>
+          <td>Не активних</td>
+          <td>{{ staff_stat.not_active }}</td>
+        </tr>
+        <tr>
+          <td><b><u>Всього</u></b></td>
+          <td><b><u>{{ staff_stat.total }}</u></b></td>
+        </tr>
+        <tr border="0px">
+          <td colspan="2"><br/></td>
+        </tr>
+        <tr>
+          <td colspan="2">Оновлено: <u>{{ staff_stat.last_update }}</u></td>
+        </tr>
+      </table>
+    </div>
+    <div class='col'>
+      <table style="width:200px;font-size:10px" border="1px solid black" border-spacing="1px">
+        <th>Авто</th>
+        <th>#</th>
+        <tr>
+          <td>Активних</td>
+          <td>{{ cars_stat.active }}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>- C</td>
+          <td>{% if cars_stat.C != None %}{{ cars_stat.C }}{% endif %}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>- B</td>
+          <td>{% if cars_stat.B != None %}{{ cars_stat.B }}{% endif %}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>- A1</td>
+          <td>{% if cars_stat.A1 != None %}{{ cars_stat.A1 }}{% endif %}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>- A2</td>
+          <td>{% if cars_stat.A2 != None %}{{ cars_stat.A2 }}{% endif %}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>- Нестандарт</td>
+          <td>{% if cars_stat.nonst != None %}{{ cars_stat.nonst }}{% endif %}</td>
+        </tr>
+        <tr style="font-style:italic">
+          <td>- Не робочіх</td>
+          <td>{{ cars_stat.notwork }}</td>
+        </tr>
+        <tr>
+          <td>Не активних</td>
+          <td>{{ cars_stat.not_active }}</td>
+        </tr>
+        <tr>
+          <td><b><u>Всього</u></b></td>
+          <td><b><u>{{ cars_stat.total }}</u></b></td>
+        </tr>
+        <tr border="0px">
+          <td colspan="2"><br/></td>
+        </tr>
+        <tr>
+          <td colspan="2">Оновлено: <u>{{ cars_stat.last_update }}</u></td>
+        </tr>
+      </table>
+    </div>
+    <div class='col'>
+      <table style="width:350px;font-size:10px" border="1px solid black" border-spacing="1px">
+        <tr><th colspan="9">Авто по рокам</th></tr>
+        <th>Рік</th>
+        <th>C</th>
+        <th>B</th>
+        <th>A1</th>
+        <th>A2</th>
+        <th>Н/С</th>
+        <th>Робочіх</th>
+        <th>Н/Р</th>
+        <th>Всього</th>
+        {% for year in cars_year %}
+        <tr>
+          <td>{{ year.year }}</td>
+          <td>{{ year.typec }}</td>
+          <td>{{ year.typeb }}</td>
+          <td>{{ year.typea1 }}</td>
+          <td>{{ year.typea2 }}</td>
+          <td>{{ year.typens}}</td>
+          <td>{{ year.work }}</td>
+          <td>{{ year.notwork }}</td>
+          <td>{{ year.total }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+<hr/>
+<table style="width:700px;font-size:10px" border="1px solid black" border-spacing="5px">
+  <tr>
+    <td>#</td>
+    <td>Локація</td>
+    <td>Персонал</td>
+    <td>Машин</td>
+    <td>Бригад</td>
+  </tr>
+{% for facility in facility_l %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ facility.1 }}<b style="color:{{ facility.2.1 }};">{{ facility.2.0 }}</b> {{ facility.0 }}</td>
+    <td>{% if facility.3 != None %}{{ facility.3 }}{% endif %}</td>
+    <td>{% if facility.4 != None %}{{ facility.4 }}{% endif %}</td>
+    <td>Б</td>
+  </tr>
+{% endfor %}
+</table>
+({{ hostname }})
+</div>
+{% endblock content %}

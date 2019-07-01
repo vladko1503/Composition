@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load mis_extras %}
+{% block content %}
+<div class="container">
+<h1><a href="/en">#</a>{{ mis.id }}: <i><u>{{ mis.mis_name }}</u></i></h1>
+
+<table style="width:900px" border="1px solid black" border-spacing="5px">
+  <tr>
+    <th>#</th>
+{% for title_item in title %}
+    <th>{{ title_item }}</th>
+{% endfor %}
+  </tr>
+  <tr>
+    <th>HeartBeat</th>
+{% for heartbeat_item in heartbeat %}
+    <td align="right">{{ heartbeat_item|intspace }}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th>Call received</th>
+{% for call_item in calls %}
+    <td align="right">{{ call_item|intspace }}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th> -Fake calls</th>
+{% for fake_item in fake %}
+    <td align="right">{{ fake_item|intspace }}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th> -Advise</th>
+{% for advise_item in advise %}
+    <td align="right">{{ advise_item|intspace }}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th> -Emergency response</th>
+{% for crew_call_item in crew_call %}
+    <td align="right">{{ crew_call_item|intspace}}</td>
+{% endfor %}
+  </tr>
+  <tr>
+    <th> --Transported to ED</th>
+{% for hospital_item in hospital %}
+    <td align="right">{{ hospital_item|intspace }}</td>
+{% endfor %}
+  </tr>
+</table>
+
+<table style="width:500px">
+  <tr style="height:20px">
+    <td>Kyiv time: </td>
+    <td>{{ timezone_now }}</td> 
+  </tr>
+</table>
+
+<table style="width:600px" border="1px solid black" border-spacing="5px">
+  <tr>
+    <td bgcolor="EBCCDC" style="width:100px"></td>
+    <td style="font-style:italic">Last data received more than 4 min ago</td>
+  </tr>
+  <tr>
+    <td bgcolor="FCE6AD" style="width:100px"></td>
+    <td style="font-style:italic">Last data received more than 4 min ago</td>
+  </tr>
+  <tr>
+    <td bgcolor="C4E5D4" style="width:100px"></td>
+    <td style="font-style:italic">On line</td>
+  </tr>  
+</table>
+<a href="/logout/">Log out: {{ user }}</a>
+</br>
+({{ hostname }})
+</div>
+{% endblock content %}

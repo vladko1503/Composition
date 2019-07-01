@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load mis_extras %}
+{% block breadcrumbs %}
+  <div class="container-fluid" style="background-color: #e3f2fd;">
+    <div class="container">
+      <ul class="breadcrumb103">
+        <li><a href="/sys/">Home-></a></li>
+        <li><a href="/sys/mis/{{ mis.id }}/">Mis#{{ mis.id }}-></a></li>
+        <li><a href="/sys/mis/{{ mis.id }}/staff">Персонал-></a></li>
+        <li class="active">{{ staff.mis_staff_id }}</li>
+      </ul> 
+    </div>
+  </div>
+{% endblock breadcrumbs %}
+{% block content %}
+<div class="container">
+<h3>MIS #{{ mis.id }}: [{{ mis.mis_name }}]: <i><u>Персонал</u></i>: {{ staff.mis_staff_id }}</h3>
+<u>Інформація про Співробітника:</u>
+<table style="width:400px;font-size:12px" border="1px solid black" border-spacing="5px">
+  <tr>
+    <td>id</td>
+    <td>{{ staff.id }}</td>
+  </tr>
+  <tr>
+    <td>МІС ID</td>
+    <td>{{ staff.mis_staff_id }}</td>
+  </tr>  
+  <tr>
+    <td>МІС Facility ID</td>
+    <td><a href="/sys/facility/{{ staff.facility_id.id }}/">{{ staff.mis_facility_id }}</a></td>
+  </tr>
+  <tr>
+    <td>Прізвище</td>
+    <td>{{ staff.family_name }}</td>
+  </tr>
+  <tr>
+    <td>Ім'я</td>
+    <td>{{ staff.first_name }}</td>
+  </tr>
+  <tr>
+    <td>Побатькові</td>
+    <td>{{ staff.middle_name }}</td>
+  </tr>
+  <tr>
+    <td>Birthday</td>
+    <td>{{ staff.birthday }}</td>
+  </tr>
+  <tr>
+    <td>Стать</td>
+    <td>{{ staff.sex }}</td>
+  </tr>
+  <tr>
+    <td>Посада</td>
+    <td>{{ staff.title.title_name }}</td>
+  </tr>
+  <tr>
+    <td>Кваліфікація</td>
+    <td>{{ staff.qualification.qualification_name }}</td>
+  </tr>
+  <tr>
+    <td>Стаж (років)</td>
+    <td>{{ staff.experience_total }}</td>
+  </tr>
+  <tr>
+    <td>Виїздний стаж  (років)</td>
+    <td>{{ staff.experience_field }}</td>
+  </tr>
+  <tr>
+    <td>Остання перекваліфікація</td>
+    <td>{{ staff.last_qualification_date }}</td>
+  </tr>
+  <tr>
+    <td>Сертифікат</td>
+    <td>{{ staff.sertificate }}</td>
+  </tr>  
+  <tr>
+    <td>Коментарі</td>
+    <td>{{ staff.staff_comment }}</td>
+  </tr>
+
+  <tr>
+    <td>is_active</td>
+    <td>{{ staff.is_active }}</td>
+  </tr>  
+  <tr>
+    <td>date_modified</td>
+    <td>{{ staff.date_modified }}</td>
+  </tr>
+  <tr>
+    <td>timestamp</td>
+    <td>{{ staff.timestamp }}</td>
+  </tr>   
+</table>
+({{ hostname }})
+</div>
+{% endblock content %}
